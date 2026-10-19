@@ -81,6 +81,12 @@ def find_executables(root_dir):
         if not path.is_file():
             continue
 
+        # On Windows os.access(X_OK) is True for every file, so filter by suffix
+        if os.name == 'nt':
+            if path.suffix.lower() == '.exe':
+                executables.append(path)
+            continue
+
         # Check if file is executable
         if os.access(path, os.X_OK):
             # Skip if it's a library file
@@ -98,7 +104,8 @@ def run_single_test_instance(executable, args, output_file, global_args, run_des
     safe_print(f"Starting {exe_name} {run_description}")
 
     try:
-        cmd = [f"./{exe_name}"]
+        # Absolute path: on Windows a relative "./x.exe" is NOT resolved against cwd
+        cmd = [str(Path(exe_path).resolve())]
         cmd.extend(args)
         if global_args:
             cmd.extend(global_args)
