@@ -17,7 +17,7 @@ from numba import cuda
 
 # Bildgröße und Ausschnitt
 WIDTH, HEIGHT = 1920*5, 1080*5
-MAX_ITER = 500
+MAX_ITER = 1000
 X_MIN, X_MAX = -2.2, 0.8
 Y_MIN, Y_MAX = -0.85, 0.85
 
