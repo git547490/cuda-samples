@@ -106,16 +106,16 @@ if __name__ == "__main__":
     img_gpu, t_gpu = run_gpu()
     print(f"GPU (CUDA):        {t_gpu * 1000:8.1f} ms")
 
-    #img_cpu, t_cpu = run_cpu()
-    #print(f"CPU (1 Kern, JIT): {t_cpu * 1000:8.1f} ms")
-    #print(f"\nGPU ist {t_cpu / t_gpu:.1f}x schneller")
+    img_cpu, t_cpu = run_cpu()
+    print(f"CPU (1 Kern, JIT): {t_cpu * 1000:8.1f} ms")
+    print(f"\nGPU ist {t_cpu / t_gpu:.1f}x schneller")
 
-    #diff = np.max(np.abs(img_gpu - img_cpu))
-    #print(f"Max. Abweichung GPU vs. CPU: {diff:.4f}")
+    diff = np.max(np.abs(img_gpu - img_cpu))
+    print(f"Max. Abweichung GPU vs. CPU: {diff:.4f}")
 
     plt.figure(figsize=(12, 7))
     plt.imshow(img_gpu, cmap="twilight_shifted", extent=(X_MIN, X_MAX, Y_MIN, Y_MAX))
-    #plt.title(f"Mandelbrot auf der GPU: {t_gpu * 1000:.1f} ms  (CPU: {t_cpu * 1000:.0f} ms)")
+    plt.title(f"Mandelbrot auf der GPU: {t_gpu * 1000:.1f} ms  (CPU: {t_cpu * 1000:.0f} ms)")
     plt.axis("off")
     plt.tight_layout()
     plt.show()
